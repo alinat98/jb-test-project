@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import List from "./List";
-import ListItem from "./ListItem";
 
 const TableOfContents = () => {
   const [data, setData] = useState({});
@@ -33,4 +32,5 @@ export default TableOfContents;
 
 const Wrapper = styled.ul`
   padding: 24px 0px 0px;
+  overflow-y: auto;
 `;

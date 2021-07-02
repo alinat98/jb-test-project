@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Router } from "react-router";
 import {createBrowserHistory} from 'history'
 import styled from "styled-components";
@@ -23,7 +22,7 @@ export default MainPage;
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 280px auto;
-  grid-template-rows: 70px auto;
+  grid-template-rows: 70px calc(100vh - 70px);
 `;
 const Header = styled.div`
   grid-column: 1 / 3;
