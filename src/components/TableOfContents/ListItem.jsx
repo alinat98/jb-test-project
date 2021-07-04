@@ -82,8 +82,8 @@ const Title = styled(Link)`
   padding: ${({ level = -1 }) => `8px 32px 8px ${32 + (+level+1) * 16}px`};
   display: flex;
   box-sizing: border-box;
-  font-weight: ${({ isOpen, isSelected }) =>
-    isOpen && isSelected ? "bold" : "normal"};
+  font-weight: ${({ isSelected }) =>
+    isSelected ? "bold" : "normal"};
   ${({ isOpen }) => isOpen && `svg {transform: none;}`}
   :hover {
     background: #0000000c;
