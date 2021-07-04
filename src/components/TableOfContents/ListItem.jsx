@@ -79,7 +79,7 @@ const Arrow = styled(ArrowIcon)`
   transition: 0.2s;
 `;
 const Title = styled(Link)`
-  padding: ${({ level = 0 }) => `8px 32px 8px ${32 + +level * 16}px`};
+  padding: ${({ level = -1 }) => `8px 32px 8px ${32 + (+level+1) * 16}px`};
   display: flex;
   box-sizing: border-box;
   font-weight: ${({ isOpen, isSelected }) =>

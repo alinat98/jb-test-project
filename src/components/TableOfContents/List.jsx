@@ -10,7 +10,7 @@ const List = ({
 }) => {
   return (
     <Wrapper isAnchorList={isAnchorList}>
-      {listOfKeys.map((key) => (
+      {listOfKeys.map((key) => !!dataCollection[key] && (
         <ListItem
           item={{
             ...dataCollection[key],
