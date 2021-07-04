@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import List from "./List";
 import Loader from "./Loader";
-// import { ReactComponent as ResetIcon } from "../../assets/delete.svg";
 
 const TableOfContents = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState({});
-  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,12 +33,7 @@ const TableOfContents = () => {
   return (
     <Wrapper>
       <InputContainer>
-        <SearchInput
-          onChange={debouncedChangeHandler}
-          placeholder="Search"
-          disabled={isLoading}
-        />
-        {/* {!!search.length && <Reset onClick={() => setSearch('')}/>} */}
+        <SearchInput onChange={debouncedChangeHandler} placeholder="Search" />
       </InputContainer>
       {isLoading ? (
         <Loader />
@@ -63,11 +57,8 @@ export default TableOfContents;
 const Wrapper = styled.ul`
   padding: 24px 0px 0px;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
 `;
 const InputContainer = styled.div`
-  position: relative;
   display: flex;
 `;
 const SearchInput = styled.input`
@@ -77,15 +68,3 @@ const SearchInput = styled.input`
   outline: none;
   width: 100%;
 `;
-// const Reset = styled(ResetIcon)`
-//   position: absolute;
-//   width: 16px;
-//   right: 35px;
-//   top: 8px;
-//   fill: #cdcdcd;
-//   cursor: pointer;
-//   transition: .2s;
-//   :hover {
-//     fill: #a9a9a9;
-//   }
-// `;

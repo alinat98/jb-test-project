@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css, keyframes } from "styled-components";
-import { ReactComponent as ArrowIcon } from "../../assets/arrow-icon.svg";
+import { ReactComponent as ArrowIcon } from "../../assets/arrow.svg";
 import List from "./List";
 
 const ListItem = ({ item, ...rest }) => {
-  const { data, selected, setSelected } = rest;
   const { title, url, pages = [], anchors = [], level, anchor = "" } = item;
+  const { data, selected, setSelected, isAnchor } = rest;
   const [isOpen, setIsOpen] = useState(false);
-  const isAnchorList = selected === item.id && isOpen;
+  const isOpenAnchorList =
+    selected === item.id && isOpen && !!item.anchors?.length;
 
   const handleSelectItem = () => {
     setSelected && setSelected(item.id);
+    if (item.id === selected || !isOpen) setIsOpen(!isOpen);
+  };
+
+  const handleOpenItem = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     setIsOpen(!isOpen);
   };
 
@@ -27,17 +34,21 @@ const ListItem = ({ item, ...rest }) => {
           level={level}
           isOpen={isOpen}
           isSelected={selected === item.id}
-          isHovered={isAnchorList}
+          isAnchor={isAnchor || isOpenAnchorList}
         >
-          <Arrow isOpen={isOpen} isVisible={pages.length > 0} />
+          <Arrow
+            onClick={handleOpenItem}
+            isOpen={isOpen}
+            isVisible={pages.length > 0}
+          />
           <span>{title}</span>
         </Title>
       </Wrapper>
-      {isAnchorList && (
+      {isOpenAnchorList && (
         <List
           listOfKeys={anchors}
           dataCollection={data.anchors}
-          isAnchorList
+          isAnchor
           level={item.level}
         />
       )}
@@ -60,7 +71,6 @@ const anim = keyframes`
     opacity: 1;
   }
 `;
-
 const Wrapper = styled.li`
   ${({ disableAnimation }) =>
     !disableAnimation &&
@@ -70,25 +80,23 @@ const Wrapper = styled.li`
 `;
 const Arrow = styled(ArrowIcon)`
   transform: ${({ isOpen }) => (isOpen ? "none" : "rotate(-90deg)")};
-  min-width: 12px;
-  max-width: 12px;
+  min-width: 7px;
+  max-width: 7px;
   height: 7px;
-  margin-right: 4px;
-  margin-top: 5px;
+  padding: 5px;
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
   transition: 0.2s;
 `;
 const Title = styled(Link)`
-  padding: ${({ level = -1 }) => `8px 32px 8px ${32 + (+level+1) * 16}px`};
+  padding: ${({ level = -1 }) => `8px 32px 8px ${32 + (+level + 1) * 16}px`};
   display: flex;
   box-sizing: border-box;
-  font-weight: ${({ isSelected }) =>
-    isSelected ? "bold" : "normal"};
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
   ${({ isOpen }) => isOpen && `svg {transform: none;}`}
   :hover {
     background: #0000000c;
   }
-  ${({ isHovered }) => isHovered && `background: #0000000c;`}
+  ${({ isAnchor }) => isAnchor && `background: #0000000c;`}
   cursor: pointer;
   transition: 0.2s;
 `;

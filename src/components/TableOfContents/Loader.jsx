@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Loader = () => (
   <Wrapper>
-    {[...Array(10)].map(() => (
-      <LoaderItem />
+    {[...Array(10)].map((_, index) => (
+      <LoaderItem key={`${index}-loaderItem`} />
     ))}
   </Wrapper>
 );
